@@ -7,9 +7,17 @@ model = load_model('model.h5')
 #model = load_weights('model.h5')  
 
 # class_labelsは無い方が良いかも。
-coreml_model = coremltools.converters.keras.convert(model,
-        input_names = 'image',
-        image_input_names = 'image',
-        class_labels = 'labels.txt')
+#coreml_model = coremltools.converters.keras.convert(model,
+#        input_names = 'image',
+#        image_input_names = 'image',
+#        class_labels = 'labels.txt')
+#
+#coreml_model.save('dev.mlmodel')
 
-coreml_model.save('dev.mlmodel')
+coreml_model = coremltools.converters.keras.convert(model
+        , input_names = 'image'
+        , is_bgr = True
+        , image_scale = 0.00392156863
+        , image_input_names = 'image'
+        , class_labels = 'labels.txt')
+coreml_model.save('dev_team')
